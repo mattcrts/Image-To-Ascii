@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -17,10 +18,16 @@ public class Main {
             System.exit(1);
         }
 
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the denominator of how much you'd like to reduce the size (lossy)\n"
+            + "For example, to have the output have 1/5 of the original quality, type 5.\n"
+            + "To retain full picture quality, type 1");
+        int denom = sc.nextInt();
+
         int pixel;
 
-        for(int i = 0; i < img.getHeight(); i++){
-            for(int j = 0; j < img.getWidth(); j++){
+        for(int i = 0; i < img.getHeight(); i += denom){
+            for(int j = 0; j < img.getWidth(); j += denom){
                 pixel = img.getRGB(j,i);
                 int r = (pixel>>16) & 0xff; //thank you random internet tutorial i found for providing me with these three scary looking lines to get the rgb values
                 int g = (pixel>>8) & 0xff;
